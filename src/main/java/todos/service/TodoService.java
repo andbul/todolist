@@ -8,6 +8,8 @@ import todos.entities.User;
 import todos.repositories.TodoRepository;
 import todos.repositories.UserRepository;
 
+import java.util.Collection;
+
 /**
  * Created by andrey on 10.11.15.
  */
@@ -21,9 +23,17 @@ public class TodoService {
     UserRepository userRepository;
 
     @Transactional
-    public void addTodo(Todo todo, String login)
-    {
-        User user = userRepository.findByLogin(login).get();
+    public Collection<Todo> getTodos(String login){
+        return todoRepository.findByUserLogin(login);
+    }
+    @Transactional
+    public void addTodo(Todo todo, String login) {
+        User user = userRepository.findByLogin(login).orElseGet(() -> {
+            User user1 = new User();
+            user1.setLogin(login);
+            userRepository.save(user1);
+            return user1;
+        });
         todo.setUser(user);
         todoRepository.save(todo);
     }

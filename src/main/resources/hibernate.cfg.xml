@@ -6,7 +6,7 @@
   <session-factory>
     <property name="connection.url">jdbc:mysql://localhost:3306</property>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-      <mapping class="todos.entities.Todos"/>
+      <mapping class="todos.entities.Todo"/>
       <mapping class="todos.entities.User"/>
       <!-- DB schema will be updated if needed -->
     <!-- <property name="hbm2ddl.auto">update</property> -->
